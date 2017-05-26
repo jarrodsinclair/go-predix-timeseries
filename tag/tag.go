@@ -36,7 +36,12 @@ func (t *Tag) MarshalJSON() ([]byte, error) {
 
 // Adds measurement to the tag
 func (t *Tag) AddDatapoint(measure measurement.Measurement, quality dataquality.Quality) {
-	dp := datapoint.Datapoint{Measure: measure, Timestamp: time.Now(), Quality: quality}
+	t.AddDatapointAtTime(time.Now(), measure, quality)
+}
+
+// Adds measurement to the tag at specified time
+func (t *Tag) AddDatapointAtTime(timestamp time.Time, measure measurement.Measurement, quality dataquality.Quality) {
+	dp := datapoint.Datapoint{Measure: measure, Timestamp: timestamp, Quality: quality}
 	t.datapoints = append(t.datapoints, dp)
 }
 
